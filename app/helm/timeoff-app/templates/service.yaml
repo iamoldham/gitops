@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "timeoff-app.fullname" . }}
+  labels:
+    {{- include "timeoff-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 3000
+      protocol: TCP
+      name: custom
+  selector:
+    {{- include "timeoff-app.selectorLabels" . | nindent 4 }}
